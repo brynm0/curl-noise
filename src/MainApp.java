@@ -1,16 +1,13 @@
-/**
- * Created by Bryn on 5/5/2017.
- */
-
 import processing.core.PApplet;
 import processing.core.PVector;
 
 public class MainApp extends PApplet {
 
     private PVector[][] mainGrid;
+    private PerlinGrid field;
     private int locSpacing;
     private boolean drawGridPoints;
-
+    private boolean drawInputField;
     public static void main(String[] args) {
         PApplet.main("MainApp", args);
     }
@@ -20,10 +17,12 @@ public class MainApp extends PApplet {
     }
 
     public void setup() {
-        locSpacing = 80;
-        drawGridPoints = true;
+        drawInputField = true;
+        drawGridPoints = false;
 
+        locSpacing = 80;
         mainGrid = new PVector[width / locSpacing][height / locSpacing];
+
         for (int i = 0; i < (width / locSpacing); i++) {
             float xLoc = (i + 1) * locSpacing;
             for (int j = 0; j < (height / locSpacing); j++) {
@@ -31,14 +30,18 @@ public class MainApp extends PApplet {
                 mainGrid[i][j] = new PVector(xLoc, yLoc);
             }
         }
+        field = new PerlinGrid(this, mainGrid, locSpacing, width, height);
+
     }
 
     public void draw() {
         background(255);
-        drawGrid();
+        drawAll();
+        field.display();
+
     }
 
-    private void drawGrid() {
+    private void drawAll() {
         if (drawGridPoints) {
             for (int i = 0; i < width / locSpacing; i++) {
                 for (int j = 0; j < height / locSpacing; j++) {
@@ -50,11 +53,16 @@ public class MainApp extends PApplet {
                 }
             }
         }
-//        else if (drawGridLines) {
+        if (drawInputField) {
+            field.display();
+        }
+//      if (drawGridLines) {
 
-//        }
+//      }
 
 
     }
+
+
 
 }
