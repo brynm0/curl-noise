@@ -1,8 +1,6 @@
 import processing.core.PApplet;
 import processing.core.PVector;
 
-import static jdk.nashorn.internal.objects.Global.println;
-
 
 public class PerlinGrid {
     PVector[][] baseGrid;
